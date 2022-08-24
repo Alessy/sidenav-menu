@@ -10,7 +10,7 @@
   <mat-tab *ngFor="let menu of menus">
     <!-- {{menu | json}} -->
     <!-- {{lastSelectedMenu | json}} -->
-    <mat-nav-list #menulist role="menubar">
+    <mat-nav-list #menulist role="menubar" appNavigableList>
       <a
         mat-list-item
         *ngIf="menu.root"
@@ -28,16 +28,19 @@
 
       <div role="menu">
         <a
-          id="menu_{{i}}"
+          id="menu_{{ i }}"
           *ngFor="let link of menu.links; let i = index"
           mat-list-item
           class="mat-list-item"
           [ngClass]="{ active: link.active }"
           (click)="selectMenu(link, menu.id, i)"
           (keyup.enter)="selectMenu(link, menu.id, i)"
-          tabindex="0"
           role="menuitem"
           [attr.aria-haspopup]="link.menuId != null"
+          [class.active-item]="link == selected"
+          [navSelected]="link == selected"
+          (navSelection)="selectMenu(link, menu.id, i); onSelected(link)"
+          appNavigableListItem
         >
           <span
             mat-list-icon
@@ -50,7 +53,11 @@
 
           <a matLine>
             {{ link.label }}
-            <span *ngIf="link.menuId" class="material-icons" style="float: right">
+            <span
+              *ngIf="link.menuId"
+              class="material-icons"
+              style="float: right"
+            >
               <span class="material-symbols-outlined" aria-hidden="true">
                 arrow_forward_ios
               </span></span

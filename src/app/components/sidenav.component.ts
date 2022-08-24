@@ -105,4 +105,11 @@ export class SidenavComponent implements OnInit {
       }, 100);
     }
   }
+
+  selected?: string = undefined;
+
+  onSelected(item: string) {
+    console.log('onSelected ' + item);
+    this.selected = item;
+  }
 }
