@@ -1,0 +1,63 @@
+/* Add application styles & imports to this file! */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+.my-sidenav {
+  .mat-tab-group {
+    width: auto;
+    max-width: 4.4rem;
+    -webkit-transition: max-width 0.5s ease-in-out;
+    transition: max-width 0.5s ease-in-out;
+
+    &.expanded {
+      max-width: 20rem;
+    }
+
+    &:not(.expanded) {
+      .active {
+        &::after {
+          // content: '';
+          // position: absolute;
+          // top: 50%;
+          // right: 0px;
+          // transform: translateY(-50%);
+          // border-top: 12px solid transparent;
+          // border-bottom: 12px solid transparent;
+          // border-right: 10px solid green;
+          // clear: both;
+          color: green;
+        }
+      }
+    }
+
+    .mat-tab-header {
+      display: none;
+    }
+
+    .mat-list-base .mat-list-item {
+      color: black;
+      width: auto;
+
+      &.active {
+        color: green;
+      }
+
+      .mat-list-item-content {
+        // padding: 0 3.4rem;
+      }
+
+      .mat-icon {
+        font-weight: 200;
+      }
+
+      a {
+        font-weight: 200;
+        min-width: 15rem;
+        padding-left: 1rem;
+      }
+    }
+  }
+
+  .mat-tab-label-container {
+    display: none;
+  }
+}

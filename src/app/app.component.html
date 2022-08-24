@@ -1,0 +1,6 @@
+<!-- <hello name="{{ name }}"></hello> -->
+<!-- <p>Start editing to see some magic happen :)</p> -->
+<button mat-button class="menu-button" (click)="toggleSidenav()">
+  <mat-icon>{{ sidenavExpanded ? 'menu_open' : 'menu' }}</mat-icon>
+</button>
+<my-sidenav [(isExpanded)]="sidenavExpanded"></my-sidenav>

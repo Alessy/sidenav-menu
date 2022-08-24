@@ -1,0 +1,63 @@
+<!-- animationDuration="500ms" -->
+<!-- [@.disabled]="true" -->
+<mat-tab-group
+  #mytabgroup
+  [selectedIndex]="currentMenuId"
+  dynamicHeight
+  class="mat-tab-group"
+  [ngClass]="{ expanded: isExpanded }"
+>
+  <mat-tab *ngFor="let menu of menus">
+    <!-- {{menu | json}} -->
+    <!-- {{lastSelectedMenu | json}} -->
+    <mat-nav-list #menulist role="menubar">
+      <a
+        mat-list-item
+        *ngIf="menu.root"
+        class="mat-list-item"
+        (click)="selectMenu(menu.root, menu.id, null)"
+        (keyup.enter)="selectMenu(menu.root, menu.id, null)"
+        tabindex="0"
+        [attr.aria-expanded]="true"
+      >
+        <span mat-list-icon class="material-icons" aria-hidden="true">
+          {{ menu.root.icon }}
+        </span>
+        <a matLine>{{ menu.root.label }} </a>
+      </a>
+
+      <div role="menu">
+        <a
+          id="menu_{{i}}"
+          *ngFor="let link of menu.links; let i = index"
+          mat-list-item
+          class="mat-list-item"
+          [ngClass]="{ active: link.active }"
+          (click)="selectMenu(link, menu.id, i)"
+          (keyup.enter)="selectMenu(link, menu.id, i)"
+          tabindex="0"
+          role="menuitem"
+          [attr.aria-haspopup]="link.menuId != null"
+        >
+          <span
+            mat-list-icon
+            class="material-icons"
+            matTooltip="{{ link.icon ? link.label : '' }}"
+            aria-hidden="true"
+          >
+            {{ link.icon }}
+          </span>
+
+          <a matLine>
+            {{ link.label }}
+            <span *ngIf="link.menuId" class="material-icons" style="float: right">
+              <span class="material-symbols-outlined" aria-hidden="true">
+                arrow_forward_ios
+              </span></span
+            >
+          </a>
+        </a>
+      </div>
+    </mat-nav-list>
+  </mat-tab>
+</mat-tab-group>

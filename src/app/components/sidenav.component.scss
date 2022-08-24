@@ -1,0 +1,7 @@
+:host {
+  height: 100%;
+}
+
+a[mat-list-item]:focus {
+  border: solid #ccc 1px;
+}
