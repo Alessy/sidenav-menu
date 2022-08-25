@@ -23,7 +23,6 @@ export class SidenavComponent implements OnInit {
   currentMenuId = 1;
   menus;
   selected?: any = undefined;
-  // lastSelectedMenu;
 
   @Input() isExpanded: boolean = false;
   @Output() isExpandedChange: EventEmitter<boolean> =
@@ -46,7 +45,6 @@ export class SidenavComponent implements OnInit {
         'mat-list-item'
       ) as HTMLCollectionOf<HTMLElement>;
       for (let i = 0; i < colection.length; i++) {
-        console.log(colection[i]);
         if (colection[i].tabIndex === 0) {
           colection[i].focus();
         }
