@@ -9,7 +9,6 @@ import {
   QueryList,
   ElementRef,
 } from '@angular/core';
-import { MatNavList } from '@angular/material/list';
 import { MenuService } from '../services/menu.service';
 
 @Component({
@@ -23,7 +22,8 @@ export class SidenavComponent implements OnInit {
 
   currentMenuId = 1;
   menus;
-  lastSelectedMenu;
+  selected?: any = undefined;
+  // lastSelectedMenu;
 
   @Input() isExpanded: boolean = false;
   @Output() isExpandedChange: EventEmitter<boolean> =
@@ -39,42 +39,19 @@ export class SidenavComponent implements OnInit {
     this.menus = this.menuService.menus;
   }
 
-  selectMenu(menu, menuId, menuNum) {
-    // console.log(this.menulist);
-    // this.menulist.forEach((div: ElementRef) => console.log(div.nativeElement));
-    console.log('menu ' + JSON.stringify(menu));
-    console.log('menuId ' + menuId);
-    console.log('this.lastSelectedMenu ' + this.lastSelectedMenu);
+  selectMenu(menu, menuId) {
 
-    if (menuId === 1) {
-      console.log('this.lastSelectedMenu save ' + menuNum);
-      this.lastSelectedMenu = menuNum;
-    }
-
-    // console.log(this.menulist);
-    // console.log(this.mytabgroup);
-    let element;
-    if (menu && menu.menuId) {
-      if (menu.menuId === 1) {
-        setTimeout(() => {
-          element = document.getElementById('menu_' + this.lastSelectedMenu);
-          console.log(element);
-          element.focus();
-        }, 100);
-      } else {
-        element = this.menulist
-          .toArray()
-          [menu.menuId].nativeElement.children.item(0);
-        setTimeout(() => element.focus(), 100);
+    setTimeout(() => {
+      let colection = document.getElementsByClassName(
+        'mat-list-item'
+      ) as HTMLCollectionOf<HTMLElement>;
+      for (let i = 0; i < colection.length; i++) {
+        console.log(colection[i]);
+        if (colection[i].tabIndex === 0) {
+          colection[i].focus();
+        }
       }
-    } else if (this.lastSelectedMenu) {
-      console.log('hej');
-      setTimeout(() => {
-        element = document.getElementById('menu_' + this.lastSelectedMenu);
-        console.log(element);
-        element.focus();
-      }, 300);
-    }
+    }, 600);
 
     if (menu.menuId) {
       this.currentMenuId = menu.menuId;
@@ -90,9 +67,8 @@ export class SidenavComponent implements OnInit {
       this.isExpandedChange.emit(this.isExpanded);
       setTimeout(() => {
         this.currentMenuId = 1;
-      }, 100);
+      }, 10);
     } else if (menu.route && menuId !== undefined) {
-      console.log(JSON.stringify(menu) + ' - ' + menuId);
       this.menus[1].links.forEach((link) => {
         if (link.menuId === menuId) link.active = true;
         else link.active = false;
@@ -102,14 +78,7 @@ export class SidenavComponent implements OnInit {
       this.isExpandedChange.emit(this.isExpanded);
       setTimeout(() => {
         this.currentMenuId = 1;
-      }, 100);
+      }, 10);
     }
-  }
-
-  selected?: string = undefined;
-
-  onSelected(item: string) {
-    console.log('onSelected ' + item);
-    this.selected = item;
   }
 }

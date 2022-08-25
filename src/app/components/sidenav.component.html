@@ -8,17 +8,16 @@
   [ngClass]="{ expanded: isExpanded }"
 >
   <mat-tab *ngFor="let menu of menus">
-    <!-- {{menu | json}} -->
-    <!-- {{lastSelectedMenu | json}} -->
     <mat-nav-list #menulist role="menubar" appNavigableList>
       <a
         mat-list-item
         *ngIf="menu.root"
         class="mat-list-item"
-        (click)="selectMenu(menu.root, menu.id, null)"
-        (keyup.enter)="selectMenu(menu.root, menu.id, null)"
-        tabindex="0"
+        (click)="selectMenu(menu.root, menu.id)"
         [attr.aria-expanded]="true"
+        (navSelection)="selectMenu(menu.root, menu.id)"
+        [navSelected]="menu.root == selected"
+        appNavigableListItem
       >
         <span mat-list-icon class="material-icons" aria-hidden="true">
           {{ menu.root.icon }}
@@ -33,13 +32,10 @@
           mat-list-item
           class="mat-list-item"
           [ngClass]="{ active: link.active }"
-          (click)="selectMenu(link, menu.id, i)"
-          (keyup.enter)="selectMenu(link, menu.id, i)"
           role="menuitem"
           [attr.aria-haspopup]="link.menuId != null"
-          [class.active-item]="link == selected"
+          (navSelection)="selectMenu(link, menu.id)"
           [navSelected]="link == selected"
-          (navSelection)="selectMenu(link, menu.id, i); onSelected(link)"
           appNavigableListItem
         >
           <span

@@ -31,12 +31,16 @@ export class NavigableListDirective implements AfterContentInit {
     )
       .withWrap()
       .withTypeAhead(300);
+
     setTimeout(() => {
-      this.listItems.first.tabIndex = 0;
+      if (this.listItems.length) {
+        this.listItems.toArray()[0]
+          ? (this.listItems.toArray()[0].tabIndex = 0)
+          : null;
+      }
     });
 
     // todo: subscribe to listItems changes
-    console.log(this.listItems);
     this.listItems.forEach((item, index) => {
       // TODO: unsub
       item.selectedChange.subscribe((it) => {
