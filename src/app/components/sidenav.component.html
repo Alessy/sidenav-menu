@@ -27,8 +27,7 @@
 
       <div role="menu">
         <a
-          id="menu_{{ i }}"
-          *ngFor="let link of menu.links; let i = index"
+          *ngFor="let link of menu.links"
           mat-list-item
           class="mat-list-item"
           [ngClass]="{ active: link.active }"
